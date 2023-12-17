@@ -11,6 +11,10 @@ public class GameWindow {
     this.panel = panel;
     frame = new JFrame();
 
+    _initialize();
+  }
+
+  private void _initialize() {
     frame.setVisible(true);
     frame.setResizable(false);
     frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
