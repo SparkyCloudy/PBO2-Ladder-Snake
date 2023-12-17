@@ -36,7 +36,7 @@ public class Board {
 
   private void _importImage() {
     try (var is = SnakeUp.class.getClassLoader()
-        .getResourceAsStream("Assets/mainboard.png")) {
+        .getResourceAsStream("assets/mainboard.png")) {
       bufferedImage = ImageIO.read(Objects.requireNonNull(is));
     } catch (IOException e) {
       e.printStackTrace();
