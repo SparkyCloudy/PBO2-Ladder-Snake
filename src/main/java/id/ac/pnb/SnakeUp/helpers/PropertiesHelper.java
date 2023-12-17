@@ -1,5 +1,7 @@
 package id.ac.pnb.SnakeUp.helpers;
 
+import id.ac.pnb.SnakeUp.SnakeUp;
+
 import java.io.IOException;
 import java.util.Properties;
 
@@ -16,7 +18,7 @@ public class PropertiesHelper {
   }
 
   private static void _initialize() throws IOException {
-    properties.load(PropertiesHelper.class.getClassLoader()
-        .getResourceAsStream("/configs/games.properties"));
+    properties.load(SnakeUp.class.getClassLoader()
+        .getResourceAsStream("configs/games.properties"));
   }
 }
