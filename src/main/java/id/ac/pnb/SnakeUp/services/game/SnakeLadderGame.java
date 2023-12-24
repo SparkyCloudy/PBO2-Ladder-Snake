@@ -44,6 +44,10 @@ public class SnakeLadderGame implements GameService {
     isNextTurn = value;
   }
 
+  public boolean isNextTurn() {
+    return isNextTurn;
+  }
+
   @Override
   public void draw(Graphics g) {
     BOARD.create(g);
