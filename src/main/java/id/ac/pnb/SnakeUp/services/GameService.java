@@ -4,7 +4,9 @@ import java.awt.*;
 
 public interface GameService {
 
-  void start(Graphics g);
+  void draw(Graphics g);
+
+  void start();
 
   void stop();
 }
