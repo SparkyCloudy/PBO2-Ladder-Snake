@@ -5,6 +5,7 @@ import id.ac.pnb.SnakeUp.SnakeUp;
 import javax.imageio.ImageIO;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -49,20 +50,20 @@ public class Board {
     var columns = size.width / resolution;
     var rows = size.height / resolution;
 
-    var x = 40;
-    var y = (rows * resolution) - resolution + x;
+    var startPoint = 40;
+    var pos = new Point(startPoint, (rows * resolution) - resolution + startPoint);
     var dir = 1;
 
     for (var i = 0; i < columns * rows; i++) {
-      var tile = new Tile(x, y, size, i + 1);
+      var tile = new Tile(pos, size, i + 1);
       tiles.add(tile);
 //      System.out.println(tile);
 
-      x += (resolution * dir);
-      if (x >= size.width || x <= 0) {
+      pos.x += (resolution * dir);
+      if (pos.x >= size.width || pos.x <= 0) {
         dir *= -1;
-        x += resolution * dir;
-        y -= resolution;
+        pos.x += resolution * dir;
+        pos.y -= resolution;
       }
     }
   }
