@@ -35,6 +35,14 @@ public class Board {
     return this.tiles;
   }
 
+  public Point getStartPosition() {
+    return tiles.get(0).getPosition();
+  }
+
+  public Point getEndPosition() {
+    return tiles.get(99).getPosition();
+  }
+
   private void _importImage() {
     try (var is = SnakeUp.class.getClassLoader()
         .getResourceAsStream("assets/mainboard.png")) {
