@@ -10,15 +10,16 @@ public class PropertiesHelper {
   private final static Properties properties = new Properties();
 
   public static String get(String key) {
-    try {
-      _initialize();
-    } catch (IOException ignored) {}
 
     return properties.getProperty(key);
   }
 
-  private static void _initialize() throws IOException {
-    properties.load(SnakeUp.class.getClassLoader()
-        .getResourceAsStream("configs/games.properties"));
+  public static void load(String path) {
+    try {
+      properties.load(SnakeUp.class.getClassLoader()
+          .getResourceAsStream(path));
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
   }
 }

@@ -14,6 +14,7 @@ public abstract class GamePanel extends JPanel {
   }
 
   private void _setPanelSize() {
+    PropertiesHelper.load("configs/games.properties");
     this.w = Integer.parseInt(PropertiesHelper.get("WINDOW_WIDTH"));
     this.h = Integer.parseInt(PropertiesHelper.get("WINDOW_HEIGHT"));
     var size = new Dimension(w, h);

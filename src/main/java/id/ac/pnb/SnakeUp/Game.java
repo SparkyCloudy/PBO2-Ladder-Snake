@@ -18,6 +18,7 @@ public class Game implements Runnable {
 
   @Override
   public void run() {
+    PropertiesHelper.load("configs/games.properties");
     var fps = Integer.parseInt(PropertiesHelper.get("FPS_GAME"));
     var timePerFrame = 1_000_000_000.0 / fps;
     var lastFrame = System.nanoTime();
@@ -43,7 +44,7 @@ public class Game implements Runnable {
 
   private void _initialize() {
     this.thread = new Thread(this);
-    this.panel = new MainGame();
+    this.panel = new MainGame(2);
     this.window = new GameWindow(this.panel);
   }
 
