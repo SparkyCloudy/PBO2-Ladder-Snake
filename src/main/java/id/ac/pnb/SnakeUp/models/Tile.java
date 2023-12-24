@@ -4,27 +4,31 @@ import java.awt.*;
 
 public class Tile {
 
-  private final int x, y, resolution, next;
+  private final int resolution, next;
+  private final Point position = new Point();
   private final Dimension size;
 
-  public Tile(int x, int y, Dimension size, int next) {
-    this.x = x;
-    this.y = y;
+  public Tile(Point position, Dimension size, int next) {
+    this.position.setLocation(position);
     this.size = size;
     this.next = next;
     resolution = size.width / 10;
   }
 
   public int getX() {
-    return x;
+    return position.x;
   }
 
   public int getY() {
-    return y;
+    return position.y;
   }
 
   public int getNext() {
     return next;
+  }
+
+  public Point getPosition() {
+    return position;
   }
 
   public int getResolution() {
@@ -32,14 +36,14 @@ public class Tile {
   }
 
   public void spawn(Graphics g) {
-    g.drawRect(x, y, resolution, resolution);
+    g.drawRect(position.x, position.y, resolution, resolution);
   }
 
   @Override
   public String toString() {
     return "Tile{" +
-        "x=" + x +
-        ", y=" + y +
+        "x=" + position.x +
+        ", y=" + position.y +
         ", resolution=" + resolution +
         ", next=" + next +
         ", size=" + size +
