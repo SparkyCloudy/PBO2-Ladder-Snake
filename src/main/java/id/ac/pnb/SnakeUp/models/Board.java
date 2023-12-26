@@ -1,13 +1,13 @@
 package id.ac.pnb.SnakeUp.models;
 
 import id.ac.pnb.SnakeUp.SnakeUp;
+import id.ac.pnb.SnakeUp.utils.Constants.TileType;
 
 import javax.imageio.ImageIO;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Point;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -17,6 +17,8 @@ public class Board {
   private final Dimension SIZE;
   private final List<Tile> tiles = new ArrayList<>();
   private BufferedImage bufferedImage;
+
+  private final List<Tile> obstacleTiles = new ArrayList<>();
 
   public Board() {
     _importImage();
@@ -63,7 +65,7 @@ public class Board {
     var dir = 1;
 
     for (var i = 0; i < columns * rows; i++) {
-      var tile = new Tile(pos, size, i + 1);
+      var tile = new Tile(pos, size, i + 1, TileType.NORMAL);
       tiles.add(tile);
 //      System.out.println(tile);
 
@@ -73,6 +75,38 @@ public class Board {
         pos.x += resolution * dir;
         pos.y -= resolution;
       }
+    }
+
+    var random = new SecureRandom();
+    var numOfSnake = random.nextInt(4, 9);
+    var numOfLadder = random.nextInt(4, 9);
+
+    // Ladder
+    for (var i = 0; i < numOfLadder; i++) {
+      var rand = new SecureRandom();
+      var index = rand.nextInt(1, 90);
+      var next = Math.min(index + rand.nextInt(1, 11), 99);
+
+      var tile = tiles.get(index);
+      tile.setType(TileType.LADDER);
+      tile.setNext(next);
+      obstacleTiles.add(tile);
+    }
+
+    // Snake
+    for (var i = 0; i < numOfSnake; i++) {
+      var rand = new SecureRandom();
+      var index = rand.nextInt(1, 90);
+      var next = Math.max(index - rand.nextInt(1, 11), 1);
+
+      var tile = tiles.get(index);
+      tile.setType(TileType.SNAKE);
+      tile.setNext(next);
+      obstacleTiles.add(tile);
+    }
+
+    for (var obsTile : obstacleTiles) {
+      System.out.println(obsTile.toString());
     }
   }
 }
