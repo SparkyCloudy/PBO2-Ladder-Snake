@@ -6,20 +6,18 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.Random;
 
 public class Dice {
   private static int value;
-  private final Point position;
   private final List<BufferedImage> bufferedImageList;
   private BufferedImage image;
 
   public Dice() {
     bufferedImageList = new ArrayList<>();
-    position = new Point();
     _importImage();
     randomizeValue();
   }
@@ -29,8 +27,8 @@ public class Dice {
   }
 
   public void randomizeValue() {
-    var random = new Random();
-    value = random.nextInt(0, 6);
+    var random = new SecureRandom();
+    value = (int) (random.nextInt(0, 7) % bufferedImageList.size());
     _pickImage(value);
   }
 
