@@ -40,4 +40,9 @@ public class MainGame extends GamePanel {
     var gameEvent = new SnakeLadderGameEvent(gameService, this);
     addMouseListener(gameEvent);
   }
+
+  @Override
+  public void updateGame() {
+    services.forEach(GameService::update);
+  }
 }

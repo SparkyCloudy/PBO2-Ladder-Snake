@@ -21,4 +21,6 @@ public abstract class GamePanel extends JPanel {
 
     setPreferredSize(size);
   }
+
+  public abstract void updateGame();
 }
