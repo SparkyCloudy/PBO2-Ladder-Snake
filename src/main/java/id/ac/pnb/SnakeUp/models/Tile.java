@@ -18,6 +18,7 @@ public class Tile {
     this.position.setLocation(position);
     this.size = size;
     this.next = next;
+    this.type = type;
     resolution = size.width / 10;
     num = numberTile;
     numberTile++;
