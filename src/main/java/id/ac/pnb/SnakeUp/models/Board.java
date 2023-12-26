@@ -31,6 +31,7 @@ public class Board {
 
   public void create(Graphics g) {
     g.drawImage(bufferedImage, 0, 0, null);
+    g.drawLine(488+64/2, 616+64/2, 616+64/2, 552+64/2);
   }
 
   public List<Tile> getTiles() {
@@ -105,8 +106,8 @@ public class Board {
       obstacleTiles.add(tile);
     }
 
-    for (var obsTile : obstacleTiles) {
-      System.out.println(obsTile.toString());
+    for (var tile : tiles) {
+      System.out.println(tile.toString());
     }
   }
 }
