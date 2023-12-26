@@ -17,7 +17,7 @@ public class SnakeLadderGame implements GameService {
 
   private final Board BOARD;
   private final Dice DICE;
-  private final ScoreBoard SCORE_SERVICE;
+  private final Scoreboard SCORE_SERVICE;
 
   private final int PLAYER_COUNT;
   private GamePlayer playerTurn = GamePlayer.ONE;
@@ -29,7 +29,7 @@ public class SnakeLadderGame implements GameService {
     this.BOARD = new Board();
     this.PLAYER_COUNT = GlobalVars.playerCount;
     this.DICE = new Dice();
-    this.SCORE_SERVICE = ScoreBoard.getInstance();
+    this.SCORE_SERVICE = Scoreboard.getInstance();
   }
 
   public static synchronized SnakeLadderGame getInstance() {
