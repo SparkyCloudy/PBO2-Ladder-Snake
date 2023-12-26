@@ -1,4 +1,4 @@
-package id.ac.pnb.SnakeUp.services.game;
+package id.ac.pnb.SnakeUp.utils.Constants;
 
 public enum GamePlayer {
   ONE,
