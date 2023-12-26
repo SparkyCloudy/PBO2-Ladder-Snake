@@ -12,33 +12,22 @@ import java.util.List;
 
 public class MainGame extends GamePanel {
 
-  private final GameService gameService;
-  private final GameService scoreService;
-
   private final List<GameService> services = new ArrayList<>();
 
-  public MainGame(int playerCount) {
-    scoreService = new ScoreBoard();
-    gameService = new SnakeLadderGame(playerCount, scoreService);
+  public MainGame() {
+    services.add(ScoreBoard.getInstance());
+    services.add(SnakeLadderGame.getInstance());
+    addMouseListener(SnakeLadderGameEvent.getInstance());
     _initialize();
   }
 
   public final void paintComponent(Graphics g) {
     super.paintComponent(g);
-    scoreService.draw(g);
-    gameService.draw(g);
+    services.forEach(s -> s.draw(g));
   }
 
   private void _initialize() {
-    services.add(gameService);
-    services.add(scoreService);
-
-    for (var service : services) {
-      service.start();
-    }
-
-    var gameEvent = new SnakeLadderGameEvent(gameService, this);
-    addMouseListener(gameEvent);
+    services.forEach(GameService::start);
   }
 
   @Override

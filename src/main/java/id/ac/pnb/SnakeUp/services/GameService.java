@@ -6,6 +6,8 @@ public interface GameService {
 
   void draw(Graphics g);
 
+  void update();
+
   void start();
 
   void stop();
