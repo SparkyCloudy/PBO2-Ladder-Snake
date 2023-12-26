@@ -1,8 +1,8 @@
 package id.ac.pnb.SnakeUp;
 
-public class Main {
+public class SnakeUp {
 
   public static void main(String[] args) {
-    System.out.println("Hello World!");
+    new Game();
   }
 }

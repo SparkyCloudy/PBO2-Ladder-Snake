@@ -1,0 +1,10 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="PBO2-Ladder-Snake:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/PBO2_Ladder_Snake_jar</output-path>
+    <root id="archive" name="PBO2-Ladder-Snake.jar">
+      <element id="module-output" name="PBO2-Ladder-Snake" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/mysql/mysql-connector-j/8.0.33/mysql-connector-j-8.0.33.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/google/protobuf/protobuf-java/3.21.9/protobuf-java-3.21.9.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
