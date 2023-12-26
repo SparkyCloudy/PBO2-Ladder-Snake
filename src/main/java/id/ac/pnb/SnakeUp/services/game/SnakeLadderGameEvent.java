@@ -25,6 +25,7 @@ public class SnakeLadderGameEvent extends GameEvent {
   @Override
   public void mousePressed(MouseEvent e) {
     super.mousePressed(e);
-    GAME_SERVICE.onTileClick(e);
+    GAME_SERVICE.onTileClicked(e);
+    GAME_SERVICE.onAnyClicked(e);
   }
 }

@@ -5,9 +5,10 @@ import id.ac.pnb.SnakeUp.models.Dice;
 import id.ac.pnb.SnakeUp.models.PlayerImpl;
 import id.ac.pnb.SnakeUp.services.GameService;
 import id.ac.pnb.SnakeUp.utils.Constants.GamePlayer;
+import id.ac.pnb.SnakeUp.utils.Constants.TileType;
 import id.ac.pnb.SnakeUp.utils.GlobalVars;
 
-import java.awt.Graphics;
+import java.awt.*;
 import java.awt.event.MouseEvent;
 
 public class SnakeLadderGame implements GameService {
@@ -20,7 +21,8 @@ public class SnakeLadderGame implements GameService {
 
   private final int PLAYER_COUNT;
   private GamePlayer playerTurn = GamePlayer.ONE;
-  private boolean status, isNextTurn, isTileClicked;
+  private boolean status, isNextTurn, isTileClicked, isPlayerMoving,
+      isAnyClicked;
   private final GamePlayer[] gamePlayers = GamePlayer.values();
 
   private SnakeLadderGame() {
@@ -51,15 +53,14 @@ public class SnakeLadderGame implements GameService {
       System.exit(0);
     }
 
-    if (isTileClicked) {
-      _roleDice();
-    }
+    onPlayerMoving();
+    onTileClicked();
+    onAnyClicked();
 
     if (isNextTurn) {
       _changeNextPlayer();
     }
 
-    _playerFinish();
     _resetAllEvent();
   }
 
@@ -80,7 +81,7 @@ public class SnakeLadderGame implements GameService {
     status = false;
   }
 
-  public void onTileClick(MouseEvent e) {
+  public void onTileClicked(MouseEvent e) {
     var mouseX = e.getX();
     var mouseY = e.getY();
 
@@ -99,6 +100,54 @@ public class SnakeLadderGame implements GameService {
     }
   }
 
+  public void onAnyClicked(MouseEvent e) {
+    isAnyClicked = true;
+  }
+
+  public void onPlayerMoving() {
+    if (!isPlayerMoving) {
+      return;
+    }
+
+    // TODO need to implement on motion powerup
+  }
+
+  public void onAnyClicked() {
+    if (!isAnyClicked) {
+      return;
+    }
+
+    _roleDice();
+    _movePlayer();
+    _checkPlayerPosition();
+  }
+
+  public void onTileClicked() {
+    if (!isTileClicked && !isAnyClicked) {
+      return;
+    }
+
+    // TODO implement powerup here
+  }
+
+  private void _checkPlayerPosition() {
+    var player = (PlayerImpl) PlayerManager.getPlayer(playerTurn);
+    var playerTileNum = player.getCurrentDiceValue();
+    var tiles = BOARD.getTiles().get(playerTileNum);
+
+    if (tiles.getType() != TileType.NORMAL) {
+      var nextTile = BOARD.getTiles().get(tiles.getNext()-1);
+      var nextTilePos = nextTile.getPosition();
+      player.getPosition().setLocation(nextTilePos);
+      player.setCurrentDiceValue(tiles.getNext()-1);
+    }
+
+    if (player.getPosition().equals(BOARD.getEndPosition())) {
+      System.out.println("Player " + playerTurn + " is winning");
+      stop();
+    }
+  }
+
   private void _changeNextPlayer() {
     var nextPlayerIndex = playerTurn.ordinal() + 1;
     if (nextPlayerIndex < PLAYER_COUNT) {
@@ -108,21 +157,10 @@ public class SnakeLadderGame implements GameService {
     }
   }
 
-  private void _playerFinish() {
-    if (!PlayerManager.getPlayer(playerTurn).getPosition()
-        .equals(BOARD.getEndPosition())) {
-      return;
-    }
-    System.out.println("Player " + playerTurn + " is winning");
-    stop();
-  }
-
-
-  private void _roleDice() {
+  private void _movePlayer() {
     var tiles = BOARD.getTiles();
     var player = (PlayerImpl) PlayerManager.getPlayer(playerTurn);
 
-    DICE.randomizeValue();
     player.addDiceValue(DICE.getValue() + 1);
 
     var currentDiceValue = player.getCurrentDiceValue();
@@ -132,18 +170,20 @@ public class SnakeLadderGame implements GameService {
       currentDiceValue = player.getCurrentDiceValue();
     }
 
-    for (int i = 0; i < DICE.getValue() + 1; i++) {
-      var currentPos = tiles.get(currentDiceValue).getPosition();
-      player.getPosition().setLocation(currentPos);
-    }
-
-    System.out.println(tiles.get(currentDiceValue).getNext());
+    var currentPos = tiles.get(currentDiceValue).getPosition();
+    player.getPosition().setLocation(currentPos);
 
     isNextTurn = true;
+  }
+
+  private void _roleDice() {
+    DICE.randomizeValue();
   }
 
   private void _resetAllEvent() {
     isNextTurn = false;
     isTileClicked = false;
+    isAnyClicked = false;
+    isPlayerMoving = false;
   }
 }
