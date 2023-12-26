@@ -1,6 +1,7 @@
 package id.ac.pnb.SnakeUp.services.game;
 
 import id.ac.pnb.SnakeUp.models.Player;
+import id.ac.pnb.SnakeUp.utils.Constants.GamePlayer;
 
 import java.awt.*;
 import java.util.ArrayList;
