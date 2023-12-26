@@ -12,10 +12,10 @@ import java.util.Objects;
 
 public class PlayerImpl implements Player {
   private static int id = 0, rank;
-  private Point position;
+  private final Point position;
   private final List<BufferedImage> bufferedImageList;
   private BufferedImage image;
-  private int currentDiceValue = 0;
+  private int currentDiceValue = 0, currentTileNumber;
 
   public PlayerImpl() {
     id++;
@@ -23,6 +23,21 @@ public class PlayerImpl implements Player {
     bufferedImageList = new ArrayList<>();
     _importImage();
     _pickImage(id);
+  }
+
+  @Override
+  public void update() {
+
+  }
+
+  @Override
+  public Point getPosition() {
+    return this.position;
+  }
+
+  @Override
+  public void create(Graphics g) {
+    g.drawImage(image, position.x, position.y, null);
   }
 
   public void addDiceValue(int value) {
@@ -35,16 +50,6 @@ public class PlayerImpl implements Player {
 
   public void setCurrentDiceValue(int currentDiceValue) {
     this.currentDiceValue = currentDiceValue;
-  }
-
-  @Override
-  public Point getPosition() {
-    return this.position;
-  }
-
-  @Override
-  public void create(Graphics g) {
-    g.drawImage(image, position.x, position.y, null);
   }
 
   private void _pickImage(int numImage) {
