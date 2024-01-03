@@ -28,7 +28,7 @@ public class Dice {
 
   public void randomizeValue() {
     var random = new SecureRandom();
-    value = (int) (random.nextInt(0, 7) % bufferedImageList.size());
+    value = random.nextInt(0, 7) % bufferedImageList.size();
     _pickImage(value);
   }
 

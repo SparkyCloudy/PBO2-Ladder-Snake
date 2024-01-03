@@ -58,7 +58,7 @@ public class Game implements Runnable {
 
       if (System.currentTimeMillis() - lastCheck >= 1000) {
         lastCheck = System.currentTimeMillis();
-        System.out.println("Frames: " + frame + " | UPS: " + update);
+//        System.out.println("Frames: " + frame + " | UPS: " + update);
         frame = 0;
         update = 0;
       }

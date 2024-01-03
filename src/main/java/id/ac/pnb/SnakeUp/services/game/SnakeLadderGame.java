@@ -140,10 +140,12 @@ public class SnakeLadderGame implements GameService {
       var nextTilePos = nextTile.getPosition();
       player.getPosition().setLocation(nextTilePos);
       player.setCurrentDiceValue(tiles.getNext()-1);
+      // TODO implement player event logging
     }
 
     if (player.getPosition().equals(BOARD.getEndPosition())) {
       System.out.println("Player " + playerTurn + " is winning");
+
       stop();
     }
   }
