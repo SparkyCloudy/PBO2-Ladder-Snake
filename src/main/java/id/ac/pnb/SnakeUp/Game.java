@@ -4,6 +4,7 @@ import id.ac.pnb.SnakeUp.components.GamePanel;
 import id.ac.pnb.SnakeUp.components.GameWindow;
 import id.ac.pnb.SnakeUp.helpers.PropertiesHelper;
 import id.ac.pnb.SnakeUp.panels.MainGame;
+import id.ac.pnb.SnakeUp.panels.leaderboard;
 import id.ac.pnb.SnakeUp.utils.GlobalVars;
 
 public class Game implements Runnable {
@@ -72,6 +73,10 @@ public class Game implements Runnable {
     this.window = new GameWindow(this.panel);
   }
 
+  private void _leaderboard() {
+      this.panel = new leaderboard();
+      this.window = new GameWindow(panel);
+  }
   private void _startGameLoop() {
     thread.start();
   }
