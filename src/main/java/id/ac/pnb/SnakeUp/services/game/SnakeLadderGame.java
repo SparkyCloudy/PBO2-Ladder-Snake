@@ -133,13 +133,14 @@ public class SnakeLadderGame implements GameService {
   private void _checkPlayerPosition() {
     var player = (PlayerImpl) PlayerManager.getPlayer(playerTurn);
     var playerTileNum = player.getCurrentDiceValue();
-    var tiles = BOARD.getTiles().get(playerTileNum);
+    var tile = BOARD.getTiles().get(playerTileNum);
 
-    if (tiles.getType() != TileType.NORMAL) {
-      var nextTile = BOARD.getTiles().get(tiles.getNext()-1);
+    if (tile.getType() != TileType.NORMAL) {
+      var next = tile.getNext() - 1;
+      var nextTile = BOARD.getTiles().get(next);
       var nextTilePos = nextTile.getPosition();
       player.getPosition().setLocation(nextTilePos);
-      player.setCurrentDiceValue(tiles.getNext()-1);
+      player.setCurrentDiceValue(tile.getNext()-1);
       // TODO implement player event logging
     }
 
