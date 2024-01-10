@@ -2,6 +2,7 @@ package id.ac.pnb.SnakeUp;
 
 import id.ac.pnb.SnakeUp.components.GamePanel;
 import id.ac.pnb.SnakeUp.components.GameWindow;
+import id.ac.pnb.SnakeUp.components.MainLoginPanel;
 import id.ac.pnb.SnakeUp.helpers.PropertiesHelper;
 import id.ac.pnb.SnakeUp.panels.MainGame;
 import id.ac.pnb.SnakeUp.utils.GlobalVars;
@@ -11,6 +12,7 @@ public class Game implements Runnable {
   private GamePanel panel;
   private GameWindow window;
   private Thread thread;
+  private MainLoginPanel login;
 
   public Game() {
     _initialize();
@@ -68,8 +70,9 @@ public class Game implements Runnable {
   private void _initialize() {
     GlobalVars.playerCount = 2;
     this.thread = new Thread(this);
-    this.panel = new MainGame();
+        this.panel = new MainLoginPanel();
     this.window = new GameWindow(this.panel);
+    
   }
 
   private void _startGameLoop() {
