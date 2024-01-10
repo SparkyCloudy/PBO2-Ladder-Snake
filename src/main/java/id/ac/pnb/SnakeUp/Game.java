@@ -12,7 +12,6 @@ public class Game implements Runnable {
   private GamePanel panel;
   private GameWindow window;
   private Thread thread;
-  private MainLoginPanel login;
 
   public Game() {
     _initialize();
@@ -70,9 +69,22 @@ public class Game implements Runnable {
   private void _initialize() {
     GlobalVars.playerCount = 2;
     this.thread = new Thread(this);
-        this.panel = new MainLoginPanel();
-    this.window = new GameWindow(this.panel);
-    
+    _login();
+  }
+
+  private void _leaderboard() {
+      this.panel = new LeaderBoard();
+      this.window = new GameWindow(panel);
+  }
+
+  private void _mainGame() {
+    this.panel = new MainGame();
+    this.window = new GameWindow(panel);
+  }
+
+  private void _login() {
+    this.panel = new MainLoginPanel();
+    this.window = new GameWindow(panel);
   }
 
   private void _startGameLoop() {
