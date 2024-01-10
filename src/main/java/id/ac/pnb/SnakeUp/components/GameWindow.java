@@ -7,12 +7,26 @@ public class GameWindow {
   private GamePanel panel;
   private JFrame frame;
 
-  public GameWindow(GamePanel panel) {
-    this.panel = panel;
-    frame = new JFrame();
+    public GameWindow(GamePanel panel) {
+        this.panel = panel;
+        frame = new JFrame();
+        _initialize();
+        
+        
+    }
+    public void setPanel(GamePanel newPanel) {
+        frame.getContentPane().removeAll();
+        frame.add(newPanel);
+//        frame.revalidate();
+//        frame.repaint();
+        _initialize();
+        
+    }
+    
+    
 
-    _initialize();
-  }
+    // _initialize();
+  
 
   private void _initialize() {
     frame.setVisible(true);
