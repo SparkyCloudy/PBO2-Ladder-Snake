@@ -15,7 +15,7 @@ public class DatabaseConnection {
         return instance;
     }
 
-    private DatabaseConnection() {
+    public DatabaseConnection() {
 
     }
 

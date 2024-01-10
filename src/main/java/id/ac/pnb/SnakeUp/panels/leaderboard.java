@@ -6,6 +6,7 @@ package id.ac.pnb.SnakeUp.panels;
 
 import javax.swing.*;
 import id.ac.pnb.SnakeUp.components.GamePanel;
+import id.ac.pnb.SnakeUp.database.DatabaseConnection;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -21,6 +22,10 @@ public class leaderboard extends GamePanel{
     
     public leaderboard(){
        _initialize();
+    }
+    
+    public void Data(){
+        DatabaseConnection conn = new DatabaseConnection();
     }
     public void _initialize(){
         JPanel header = new JPanel();
@@ -77,6 +82,7 @@ public class leaderboard extends GamePanel{
         super.add(footer);
         
     }
+
     @Override
     public void updateGame() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
