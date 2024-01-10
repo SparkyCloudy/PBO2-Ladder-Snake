@@ -24,3 +24,6 @@ public abstract class GamePanel extends JPanel {
 
   public abstract void updateGame();
 }
+
+
+
