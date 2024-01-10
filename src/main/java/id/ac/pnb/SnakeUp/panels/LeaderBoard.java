@@ -4,24 +4,22 @@
  */
 package id.ac.pnb.SnakeUp.panels;
 
-import javax.swing.*;
 import id.ac.pnb.SnakeUp.components.GamePanel;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.GridLayout;
+
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import java.awt.*;
 
 /**
  *
  * @author BAGASKARA
  */
-public class leaderboard extends GamePanel{
+public class LeaderBoard extends GamePanel{
     
-    public leaderboard(){
+    public LeaderBoard(){
        _initialize();
     }
+
     public void _initialize(){
         JPanel header = new JPanel();
         header.setPreferredSize(new Dimension(1050,100));
