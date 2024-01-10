@@ -5,6 +5,7 @@ import id.ac.pnb.SnakeUp.components.GameWindow;
 import id.ac.pnb.SnakeUp.helpers.PropertiesHelper;
 import id.ac.pnb.SnakeUp.panels.LeaderBoard;
 import id.ac.pnb.SnakeUp.panels.MainGame;
+import id.ac.pnb.SnakeUp.panels.MainMenu2;
 import id.ac.pnb.SnakeUp.utils.GlobalVars;
 
 public class Game implements Runnable {
@@ -69,7 +70,13 @@ public class Game implements Runnable {
   private void _initialize() {
     GlobalVars.playerCount = 2;
     this.thread = new Thread(this);
-    _leaderboard();
+    _mainmenu2();
+    //_leaderboard();
+  }
+
+  private void _mainmenu2(){
+    this.panel = new MainMenu2();
+    this.window = new GameWindow(panel);
   }
 
   private void _leaderboard() {
