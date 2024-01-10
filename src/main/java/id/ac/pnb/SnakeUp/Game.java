@@ -3,9 +3,12 @@ package id.ac.pnb.SnakeUp;
 import id.ac.pnb.SnakeUp.components.GamePanel;
 import id.ac.pnb.SnakeUp.components.GameWindow;
 import id.ac.pnb.SnakeUp.components.MainLoginPanel;
+import id.ac.pnb.SnakeUp.database.DatabaseConnection;
 import id.ac.pnb.SnakeUp.helpers.PropertiesHelper;
+import id.ac.pnb.SnakeUp.panels.LeaderBoard;
 import id.ac.pnb.SnakeUp.panels.MainGame;
 import id.ac.pnb.SnakeUp.utils.GlobalVars;
+import java.sql.SQLException;
 
 public class Game implements Runnable {
 
@@ -50,6 +53,9 @@ public class Game implements Runnable {
         update++;
         deltaUpdate--;
       }
+      if (panel instanceof MainLoginPanel && ((MainLoginPanel) panel).isLoggedIn()) {
+                    _mainGame();
+                }
 
       if (deltaFrame >= 1.0) {
         panel.repaint();
@@ -67,7 +73,7 @@ public class Game implements Runnable {
   }
 
   private void _initialize() {
-    GlobalVars.playerCount = 2;
+    
     this.thread = new Thread(this);
     _login();
   }
@@ -79,13 +85,15 @@ public class Game implements Runnable {
 
   private void _mainGame() {
     this.panel = new MainGame();
-    this.window = new GameWindow(panel);
+    this.window.setPanel(panel);
   }
 
   private void _login() {
+          
     this.panel = new MainLoginPanel();
     this.window = new GameWindow(panel);
   }
+ 
 
   private void _startGameLoop() {
     thread.start();

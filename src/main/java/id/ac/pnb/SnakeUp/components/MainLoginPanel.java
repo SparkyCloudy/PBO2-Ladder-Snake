@@ -1,51 +1,55 @@
 package id.ac.pnb.SnakeUp.components;
-
-
 import id.ac.pnb.SnakeUp.models.ModelLogin;
 import id.ac.pnb.SnakeUp.models.ModelUser;
-import id.ac.pnb.SnakeUp.services.ServiceUser;
+import id.ac.pnb.SnakeUp.services.game.LoginManager;
+import id.ac.pnb.SnakeUp.utils.GlobalVars;
+
 import net.miginfocom.swing.MigLayout;
 
 import org.jdesktop.animation.timing.Animator;
 import org.jdesktop.animation.timing.TimingTarget;
 import org.jdesktop.animation.timing.TimingTargetAdapter;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.Locale;
-import javax.swing.JLayeredPane;
-import javax.swing.JLayeredPane;
-import javax.swing.JPanel;
 
 public class MainLoginPanel extends GamePanel {
 
-   private final DecimalFormat df = new DecimalFormat("##0.###", DecimalFormatSymbols.getInstance(Locale.US));
+    private final DecimalFormat df = new DecimalFormat("##0.###", DecimalFormatSymbols.getInstance(Locale.US));
     private MigLayout layout;
     private PanelCover cover;
     private PanelLoginAndRegister loginAndRegister;
-    private boolean isLogin;
+    private boolean isLogin = true;
     private final double addSize = 30;
     private final double coverSize = 40;
     private final double loginSize = 60;
-    private ServiceUser service;
-//     private javax.swing.JLayeredPane bg;
-      private GameWindow window;
-     
+    private LoginManager service;
+    private boolean loggedIn = false;
 
- public MainLoginPanel() { 
-
+    public MainLoginPanel() {
         init();
     }
-  private void init() {
-    
-        service = new ServiceUser();
+
+    private void init() {
+
+        service = new LoginManager();
         layout = new MigLayout("fill, insets 0");
         cover = new PanelCover();
-
-        ActionListener eventRegister = ae -> register();
-        ActionListener eventLogin = ae -> login();
+        ActionListener eventRegister = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                register();
+            }
+        };
+        ActionListener eventLogin = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                login();
+            }
+        };
         loginAndRegister = new PanelLoginAndRegister(eventRegister, eventLogin);
         TimingTarget target = new TimingTargetAdapter() {
             public void timingEvent(float fraction) {
@@ -106,6 +110,7 @@ public class MainLoginPanel extends GamePanel {
     }
 
     private void register() {
+
         ModelUser user = loginAndRegister.getUser();
         try {
             if (service.checkDuplicateUser(user.getUserName())) {
@@ -114,11 +119,12 @@ public class MainLoginPanel extends GamePanel {
                 service.insertUser(user);
                 service.insertWinrate(user);
                 showMessage(Message.MessageType.SUCCESS, "Your account has been registered, please log in");
+
             }
-        } catch (SQLException e) {
+        } catch (Exception e) {
             showMessage(Message.MessageType.ERROR, "Error Register");
-            e.printStackTrace();
         }
+
     }
 
     private void login() {
@@ -126,14 +132,17 @@ public class MainLoginPanel extends GamePanel {
         try {
             ModelUser user = service.login(data);
             if (user != null) {
-               
+              
+//                 System.out.println(GlobalVars.playerCount);
+                loggedIn = true;
+                
             } else {
                 showMessage(Message.MessageType.ERROR, "Email and Password incorrect");
             }
-
-        } catch (SQLException e) {
+        } catch (Exception e) {
             showMessage(Message.MessageType.ERROR, "Error Login");
         }
+
     }
 
     private void showMessage(Message.MessageType messageType, String message) {
@@ -189,11 +198,15 @@ public class MainLoginPanel extends GamePanel {
     }
 
     private void initComponents() {
-      
+
     }
 
     @Override
     public void updateGame() {
-        throw new UnsupportedOperationException("Not supported yet.");
+//        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public boolean isLoggedIn() {
+        return loggedIn;
     }
 }

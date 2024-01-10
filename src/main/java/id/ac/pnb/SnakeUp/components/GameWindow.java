@@ -15,6 +15,14 @@ public class GameWindow {
         
         
     }
+    public void setPanel(GamePanel newPanel) {
+        frame.getContentPane().removeAll();
+        frame.add(newPanel);
+//        frame.revalidate();
+//        frame.repaint();
+        _initialize();
+        
+    }
 
     private void _initialize() {
 //         bg = new javax.swing.JLayeredPane();

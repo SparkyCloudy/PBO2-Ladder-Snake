@@ -1,5 +1,7 @@
 package id.ac.pnb.SnakeUp.models;
 
+import id.ac.pnb.SnakeUp.utils.GlobalVars;
+
 public class ModelUser {
 
     public int getUserID() {
@@ -18,8 +20,6 @@ public class ModelUser {
         this.userName = userName;
     }
 
-
-
     public String getPassword() {
         return password;
     }
@@ -28,17 +28,45 @@ public class ModelUser {
         this.password = password;
     }
 
+    public ModelUser(int userID, String userName) {
 
-    public ModelUser( int userID ,String userName) {
-    
-         this.userID = userID;
+        this.userID = userID;
         this.userName = userName;
-       
-       
-        
-    }
+        playerID();
 
-    public ModelUser(String username,  String password) {
+    }
+    
+    public void playerID(){
+        switch (GlobalVars.playerCount) {
+            case 1:
+                GlobalVars.userID.put("player1",this.userID);
+                break;
+            case 2:
+                GlobalVars.userID.put("player2",this.userID);
+                break;
+            case 3:
+                GlobalVars.userID.put("player3",this.userID);
+                break;
+            case 4:
+                GlobalVars.userID.put("player4",this.userID);
+                break;
+            default:
+                break;
+        }
+        }
+    public void playerUsername(){
+        if(GlobalVars.playerCount == 1){
+             GlobalVars.userName.put("player1",this.userName);
+        }else if (GlobalVars.playerCount == 2) {
+            GlobalVars.userName.put("player2",this.userName);
+        }else if (GlobalVars.playerCount == 3) {
+            GlobalVars.userName.put("player3",this.userName);
+        }else if (GlobalVars.playerCount == 4) {
+            GlobalVars.userName.put("player4",this.userName);
+        }
+        }
+
+    public ModelUser(String username, String password) {
 
         this.userName = username;
 

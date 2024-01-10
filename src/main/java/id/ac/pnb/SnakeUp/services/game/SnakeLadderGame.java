@@ -27,9 +27,11 @@ public class SnakeLadderGame implements GameService {
 
   private SnakeLadderGame() {
     this.BOARD = new Board();
-    this.PLAYER_COUNT = GlobalVars.playerCount;
+    this.PLAYER_COUNT = GlobalVars.userID.size();
     this.DICE = new Dice();
     this.SCORE_SERVICE = Scoreboard.getInstance();
+      System.out.println(   PLAYER_COUNT);
+
   }
 
   public static synchronized SnakeLadderGame getInstance() {
