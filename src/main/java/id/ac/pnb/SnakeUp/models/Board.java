@@ -48,19 +48,21 @@ public class Board {
   }
 
   private void _drawObsTiles(Graphics g) {
+    var counter = 0;
+    Graphics2D g2 = (Graphics2D) g;
+    g2.setStroke(new BasicStroke(10));
     for (var tile : obstacleTiles) {
-      var nextTile = TILES.get(tile.getNext());
+      var nextTile = TILES.get(tile.getNext()-1);
 
       if (tile.getType() == TileType.SNAKE) {
-        g.drawLine(tile.getX()+64/2, tile.getY()+64/2,
+        g2.setColor(Color.RED);
+        g2.drawLine(tile.getX()+64/2, tile.getY()+64/2,
             nextTile.getX()+64/2, nextTile.getY()+64/2);
-        g.setColor(new Color(255, 0, 0));
       } else {
-        g.drawLine(tile.getX()+64/2, tile.getY()+64/2,
-            nextTile.getX()+64/2, nextTile.getY()+64/2);
-        g.setColor(new Color(0, 0, 255));
+        g2.setColor(Color.BLUE);
+        g2.drawLine(tile.getX() + 64 / 2, tile.getY() + 64 / 2,
+            nextTile.getX() + 64 / 2, nextTile.getY() + 64 / 2);
       }
-
     }
   }
 
@@ -113,11 +115,11 @@ public class Board {
   private void _generateSpecialTiles(int size, TileType type) {
     for (var i = 0; i < size; i++) {
       var next = 0;
-      var index = RANDOM.nextInt(10, 90);
+      var index = RANDOM.nextInt(1, 90);
 
       switch (type) {
-        case LADDER -> next = Math.min(index + RANDOM.nextInt(1, 11), 99);
-        case SNAKE -> next = Math.max(index - RANDOM.nextInt(1, 11), 1);
+        case LADDER -> next = Math.min(index + RANDOM.nextInt(10, 31), 99);
+        case SNAKE -> next = Math.max(index - RANDOM.nextInt(10, 31), 1);
       }
 
       var tile = TILES.get(index);

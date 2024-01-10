@@ -3,8 +3,8 @@ package id.ac.pnb.SnakeUp;
 import id.ac.pnb.SnakeUp.components.GamePanel;
 import id.ac.pnb.SnakeUp.components.GameWindow;
 import id.ac.pnb.SnakeUp.helpers.PropertiesHelper;
+import id.ac.pnb.SnakeUp.panels.LeaderBoard;
 import id.ac.pnb.SnakeUp.panels.MainGame;
-import id.ac.pnb.SnakeUp.panels.leaderboard;
 import id.ac.pnb.SnakeUp.utils.GlobalVars;
 
 public class Game implements Runnable {
@@ -70,14 +70,19 @@ public class Game implements Runnable {
   private void _initialize() {
     GlobalVars.playerCount = 2;
     this.thread = new Thread(this);
-    this.panel = new MainGame();
-    this.window = new GameWindow(this.panel);
+    _leaderboard();
   }
 
   private void _leaderboard() {
-      this.panel = new leaderboard();
+      this.panel = new LeaderBoard();
       this.window = new GameWindow(panel);
   }
+
+  private void _mainGame() {
+    this.panel = new MainGame();
+    this.window = new GameWindow(panel);
+  }
+
   private void _startGameLoop() {
     thread.start();
   }
