@@ -14,7 +14,6 @@ public class Game implements Runnable {
   private Thread thread;
 
   public Game() {
-    _leaderboard();
     _initialize();
     _startGameLoop();
   }

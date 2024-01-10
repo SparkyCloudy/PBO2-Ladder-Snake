@@ -2,6 +2,8 @@ package id.ac.pnb.SnakeUp.database;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class DatabaseConnection {
 
@@ -16,7 +18,11 @@ public class DatabaseConnection {
     }
 
     public DatabaseConnection() {
-
+        try {
+            connectToDatabase();
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public void connectToDatabase() throws SQLException {
