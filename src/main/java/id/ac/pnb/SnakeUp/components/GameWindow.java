@@ -21,5 +21,6 @@ public class GameWindow {
     frame.add(this.panel);
     frame.pack();
     frame.setLocationRelativeTo(null);
+    frame.getContentPane();
   }
 }

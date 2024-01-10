@@ -3,7 +3,9 @@ package id.ac.pnb.SnakeUp;
 import id.ac.pnb.SnakeUp.components.GamePanel;
 import id.ac.pnb.SnakeUp.components.GameWindow;
 import id.ac.pnb.SnakeUp.helpers.PropertiesHelper;
+import id.ac.pnb.SnakeUp.panels.LeaderBoard;
 import id.ac.pnb.SnakeUp.panels.MainGame;
+import id.ac.pnb.SnakeUp.panels.MainMenu2;
 import id.ac.pnb.SnakeUp.utils.GlobalVars;
 
 public class Game implements Runnable {
@@ -58,7 +60,7 @@ public class Game implements Runnable {
 
       if (System.currentTimeMillis() - lastCheck >= 1000) {
         lastCheck = System.currentTimeMillis();
-        System.out.println("Frames: " + frame + " | UPS: " + update);
+//        System.out.println("Frames: " + frame + " | UPS: " + update);
         frame = 0;
         update = 0;
       }
@@ -68,8 +70,23 @@ public class Game implements Runnable {
   private void _initialize() {
     GlobalVars.playerCount = 2;
     this.thread = new Thread(this);
+    _mainmenu2();
+    //_leaderboard();
+  }
+
+  private void _mainmenu2(){
+    this.panel = new MainMenu2();
+    this.window = new GameWindow(panel);
+  }
+
+  private void _leaderboard() {
+      this.panel = new LeaderBoard();
+      this.window = new GameWindow(panel);
+  }
+
+  private void _mainGame() {
     this.panel = new MainGame();
-    this.window = new GameWindow(this.panel);
+    this.window = new GameWindow(panel);
   }
 
   private void _startGameLoop() {

@@ -15,8 +15,9 @@ import java.util.Objects;
 public class Board {
 
   private final Dimension SIZE;
-  private final List<Tile> tiles = new ArrayList<>();
+  private final List<Tile> TILES = new ArrayList<>();
   private BufferedImage bufferedImage;
+  private final SecureRandom RANDOM = new SecureRandom();
 
   private final List<Tile> obstacleTiles = new ArrayList<>();
 
@@ -31,19 +32,38 @@ public class Board {
 
   public void create(Graphics g) {
     g.drawImage(bufferedImage, 0, 0, null);
-    g.drawLine(488+64/2, 616+64/2, 616+64/2, 552+64/2);
+    _drawObsTiles(g);
   }
 
   public List<Tile> getTiles() {
-    return this.tiles;
+    return this.TILES;
   }
 
   public Point getStartPosition() {
-    return tiles.get(0).getPosition();
+    return TILES.get(0).getPosition();
   }
 
   public Point getEndPosition() {
-    return tiles.get(99).getPosition();
+    return TILES.get(99).getPosition();
+  }
+
+  private void _drawObsTiles(Graphics g) {
+    var counter = 0;
+    Graphics2D g2 = (Graphics2D) g;
+    g2.setStroke(new BasicStroke(10));
+    for (var tile : obstacleTiles) {
+      var nextTile = TILES.get(tile.getNext()-1);
+
+      if (tile.getType() == TileType.SNAKE) {
+        g2.setColor(Color.RED);
+        g2.drawLine(tile.getX()+64/2, tile.getY()+64/2,
+            nextTile.getX()+64/2, nextTile.getY()+64/2);
+      } else {
+        g2.setColor(Color.BLUE);
+        g2.drawLine(tile.getX() + 64 / 2, tile.getY() + 64 / 2,
+            nextTile.getX() + 64 / 2, nextTile.getY() + 64 / 2);
+      }
+    }
   }
 
   private void _importImage() {
@@ -67,7 +87,7 @@ public class Board {
 
     for (var i = 0; i < columns * rows; i++) {
       var tile = new Tile(pos, size, i + 1, TileType.NORMAL);
-      tiles.add(tile);
+      TILES.add(tile);
 //      System.out.println(tile);
 
       pos.x += (resolution * dir);
@@ -78,36 +98,34 @@ public class Board {
       }
     }
 
-    var random = new SecureRandom();
-    var numOfSnake = random.nextInt(4, 9);
-    var numOfLadder = random.nextInt(4, 9);
+    var numOfSnake = RANDOM.nextInt(3, 5);
+    var numOfLadder = RANDOM.nextInt(3, 5);
 
     // Ladder
-    for (var i = 0; i < numOfLadder; i++) {
-      var rand = new SecureRandom();
-      var index = rand.nextInt(1, 90);
-      var next = Math.min(index + rand.nextInt(1, 11), 99);
-
-      var tile = tiles.get(index);
-      tile.setType(TileType.LADDER);
-      tile.setNext(next);
-      obstacleTiles.add(tile);
-    }
+    _generateSpecialTiles(numOfLadder, TileType.LADDER);
 
     // Snake
-    for (var i = 0; i < numOfSnake; i++) {
-      var rand = new SecureRandom();
-      var index = rand.nextInt(1, 90);
-      var next = Math.max(index - rand.nextInt(1, 11), 1);
+    _generateSpecialTiles(numOfSnake, TileType.SNAKE);
 
-      var tile = tiles.get(index);
-      tile.setType(TileType.SNAKE);
+    for (var tile : obstacleTiles) {
+      System.out.println(tile.toString());
+    }
+  }
+
+  private void _generateSpecialTiles(int size, TileType type) {
+    for (var i = 0; i < size; i++) {
+      var next = 0;
+      var index = RANDOM.nextInt(1, 90);
+
+      switch (type) {
+        case LADDER -> next = Math.min(index + RANDOM.nextInt(10, 31), 99);
+        case SNAKE -> next = Math.max(index - RANDOM.nextInt(10, 31), 1);
+      }
+
+      var tile = TILES.get(index);
+      tile.setType(type);
       tile.setNext(next);
       obstacleTiles.add(tile);
-    }
-
-    for (var tile : tiles) {
-      System.out.println(tile.toString());
     }
   }
 }
