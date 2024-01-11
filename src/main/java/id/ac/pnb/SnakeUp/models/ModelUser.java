@@ -12,10 +12,7 @@ public final class ModelUser {
     public void cekPlayer (){
       
         
-        if(cek == 1){
-            
-        }
-        
+     
     }
 
     public void setUserID(int userID) {
@@ -44,7 +41,7 @@ public final class ModelUser {
         this.userName = userName;
         
           
-        playerID();
+       
    
     }
     
@@ -79,12 +76,13 @@ public final class ModelUser {
 
         this.password = password;
     }
+    
 
     public ModelUser() {
     }
 
     private int userID;
-    int cek = 0;
+//    int cek = 0;
     private String userName;
 
     private String password;

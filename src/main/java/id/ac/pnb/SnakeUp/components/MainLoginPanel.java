@@ -136,19 +136,20 @@ public class MainLoginPanel extends GamePanel {
                 showMessage(Message.MessageType.ERROR, "Email and Password incorrect");
                 return;
             }
+           
        
             if (GlobalVars.setLogin) {
                    System.out.println(GlobalVars.userID);
-                if (GlobalVars.userID.size() >= 2) {
+//                if (GlobalVars.userID.size() >= 2) {
                     
                   
                     loggedIn = true;
 
-                } else {
+//                } else {
 
-                    showMessage(Message.MessageType.ERROR, "You need at least 2 players to play the game");
-                
-                }
+//                    showMessage(Message.MessageType.ERROR, "You need at least 2 players to play the game");
+//                
+//                }
             } else {
                 loggedIn = true;
             }
@@ -219,7 +220,10 @@ public class MainLoginPanel extends GamePanel {
     public void updateGame() {
 //        throw new UnsupportedOperationException("Not supported yet.");
     }
-  
+    public void cekPlayer(){
+        
+    }
+
     public boolean isLoggedIn() {
         return loggedIn;
     }

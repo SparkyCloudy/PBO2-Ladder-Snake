@@ -7,6 +7,7 @@ import id.ac.pnb.SnakeUp.database.DatabaseConnection;
 import id.ac.pnb.SnakeUp.helpers.PropertiesHelper;
 import id.ac.pnb.SnakeUp.panels.LeaderBoard;
 import id.ac.pnb.SnakeUp.panels.MainGame;
+import id.ac.pnb.SnakeUp.panels.MainMenu;
 import id.ac.pnb.SnakeUp.utils.Constants.GamePlayer;
 import id.ac.pnb.SnakeUp.utils.GlobalVars;
 import java.sql.SQLException;
@@ -57,7 +58,7 @@ public class Game implements Runnable {
       }
       
       if (panel instanceof MainLoginPanel && ((MainLoginPanel) panel).isLoggedIn()) {
-                    _mainGame();
+                    _mainMenu();
                 }
 
       if (deltaFrame >= 1.0) {
@@ -68,7 +69,7 @@ public class Game implements Runnable {
 
       if (System.currentTimeMillis() - lastCheck >= 1000) {
         lastCheck = System.currentTimeMillis();
-//        System.out.println("Frames: " + frame + " | UPS: " + update);
+        System.out.println("Frames: " + frame + " | UPS: " + update);
         frame = 0;
         update = 0;
       }
@@ -94,6 +95,10 @@ public class Game implements Runnable {
 
   private void _mainGame() {
     this.panel = new MainGame();
+    this.window.setPanel(panel);
+  }
+  private void _mainMenu() {
+    this.panel = new MainMenu();
     this.window.setPanel(panel);
   }
 
