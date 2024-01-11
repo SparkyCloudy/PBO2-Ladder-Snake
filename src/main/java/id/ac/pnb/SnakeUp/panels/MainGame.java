@@ -1,7 +1,9 @@
 package id.ac.pnb.SnakeUp.panels;
 
 import id.ac.pnb.SnakeUp.components.GamePanel;
+import id.ac.pnb.SnakeUp.models.ModelUser;
 import id.ac.pnb.SnakeUp.services.GameService;
+import id.ac.pnb.SnakeUp.services.game.LoginManager;
 import id.ac.pnb.SnakeUp.services.game.Scoreboard;
 import id.ac.pnb.SnakeUp.services.game.SnakeLadderGame;
 import id.ac.pnb.SnakeUp.services.game.SnakeLadderGameEvent;
@@ -13,8 +15,11 @@ import java.util.List;
 public class MainGame extends GamePanel {
 
   private final List<GameService> services = new ArrayList<>();
+  private boolean end = false;
 
   public MainGame() {
+      
+     
     services.add(Scoreboard.getInstance());
     services.add(SnakeLadderGame.getInstance());
     addMouseListener(SnakeLadderGameEvent.getInstance());
@@ -33,5 +38,11 @@ public class MainGame extends GamePanel {
   @Override
   public void updateGame() {
     services.forEach(GameService::update);
+  }
+  public void end(){
+  this.end = true;
+  }
+  public boolean  getEnd(){
+  return end;
   }
 }
