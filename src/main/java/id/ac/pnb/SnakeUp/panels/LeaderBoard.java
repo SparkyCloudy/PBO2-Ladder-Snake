@@ -5,15 +5,10 @@
 package id.ac.pnb.SnakeUp.panels;
 
 import id.ac.pnb.SnakeUp.components.GamePanel;
-import id.ac.pnb.SnakeUp.database.DatabaseConnection;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import java.awt.*;
 
 /**
  *
@@ -21,79 +16,11 @@ import javax.swing.border.EmptyBorder;
  */
 public class LeaderBoard extends GamePanel{
     
-    private Connection conn = null;
-    private PreparedStatement p = null;
-    private ResultSet r = null;
-    
     public LeaderBoard(){
-        _initialize();
+       _initialize();
     }
-    
-    public void content(){
-        
-        try {
-            conn = DatabaseConnection.getInstance().getConnection();
-            p = conn.prepareStatement("SELECT winrate.match,winrate.gameWin,user.username FROM winrate INNER JOIN user ON winrate.id_user = user.id_user ORDER BY gameWin DESC LIMIT 5");
-            r = p.executeQuery();
 
-            EmptyBorder padding = new EmptyBorder(50,50,50,50);
-            JPanel content = new JPanel(new GridLayout(5, 1, 0, 10));
-            content.setBorder(padding);
-            content.setPreferredSize(new Dimension(1050,500));
- 
-            int rank = 1;
-            
-            while (r.next()) {
-                JPanel box = new JPanel();
-                box.setLayout(new GridLayout(2,5));
-                box.setPreferredSize(new Dimension(800,50));
-                box.setBackground(Color.WHITE);
-
-                String field[] = {"Ranking","Username","Match","Win","Persentase"};
-                for (int j = 0; j < field.length; j++) {
-                    box.add(isiContent(field[j]));
-                }
-                
-                String ranking = rank+"";
-                String username = r.getString("username");
-                String match = r.getString("match");
-                String gameWin = r.getString("gameWin");
-                String persentase = persentase(r.getInt("gameWin"),r.getInt("match"))+"%";
-
-                box.add(isiContent(ranking));
-                box.add(isiContent(username));
-                box.add(isiContent(match));
-                box.add(isiContent(gameWin));
-                box.add(isiContent(persentase));
-                
-                
-                
-                content.add(box);
-                rank++;
-            }
-            super.add(content);
-            r.close();
-            p.close();
-            conn.close();
-        } catch (SQLException e) {
-            e.getErrorCode();
-        }
-    }
-    
-    private JPanel isiContent(String data){
-        JPanel isi = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        isi.add(new JLabel(""+data));
-        isi.setBackground(Color.white);
-        return isi;
-    }
-    
-    
-    private int persentase(int win,int pertandingan){
-        return (int) Math.round(((double)win/pertandingan)*100);
-    }
-    
     public void _initialize(){
-        //header
         JPanel header = new JPanel();
         header.setPreferredSize(new Dimension(1050,100));
         header.setLayout(new BoxLayout(header,BoxLayout.PAGE_AXIS));
@@ -106,10 +33,37 @@ public class LeaderBoard extends GamePanel{
         header.add(text);
         super.add(header);
         
-        //content  
-        content();
+        EmptyBorder padding = new EmptyBorder(50,50,50,50);
+        JPanel content = new JPanel(new GridLayout(0, 1, 0, 10));
+        content.setBorder(padding);
+        content.setPreferredSize(new Dimension(1050,500));
+        for (int i = 1; i <= 5; i++) {
+            JPanel box = new JPanel();
+            box.setLayout(new GridLayout(2,5));
+            box.setPreferredSize(new Dimension(800,50));
+            box.setBackground(Color.WHITE);
+            
+            String th[] = {"Ranking","Username","Match","Win","Win Rate"};
+            for (int j = 0; j < th.length; j++) {
+                JPanel isi = new JPanel(new FlowLayout(FlowLayout.CENTER));
+                isi.add(new JLabel(""+th[j]));
+                isi.setBackground(Color.white);
+                box.add(isi);
+            }
+            
+            String td[] = {"","Bagaskara","2000","1500","70%"};
+            td[0] = ""+i;
+            for (int j = 0; j < 5; j++) {
+                JPanel isi = new JPanel(new FlowLayout(FlowLayout.CENTER));
+                isi.add(new JLabel(""+td[j]));
+                isi.setBackground(Color.white);
+                box.add(isi);
+            }
+            
+            content.add(box);
+        }
+        super.add(content);
         
-        //footer
         JPanel footer = new JPanel();
         footer.setPreferredSize(new Dimension(1050,100));
         
@@ -117,15 +71,10 @@ public class LeaderBoard extends GamePanel{
         back.setPreferredSize(new Dimension(200,50));
         back.setBackground(Color.DARK_GRAY);
         back.setForeground(Color.WHITE);
-        
-        back.addActionListener((ActionEvent e) -> {
-            //ini adalah tombol kembali
-        });
         footer.add(back);
         super.add(footer);
         
     }
-
     @Override
     public void updateGame() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
