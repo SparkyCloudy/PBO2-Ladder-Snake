@@ -7,6 +7,7 @@ package id.ac.pnb.SnakeUp.panels;
 import id.ac.pnb.SnakeUp.components.GamePanel;
 import id.ac.pnb.SnakeUp.database.DatabaseConnection;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -116,6 +117,10 @@ public class LeaderBoard extends GamePanel{
         back.setPreferredSize(new Dimension(200,50));
         back.setBackground(Color.DARK_GRAY);
         back.setForeground(Color.WHITE);
+        
+        back.addActionListener((ActionEvent e) -> {
+            //ini adalah tombol kembali
+        });
         footer.add(back);
         super.add(footer);
         
