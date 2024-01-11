@@ -22,12 +22,13 @@ public class MainMenu extends GamePanel {
     private JLabel Player2_name;
     private GamePanel panel;
     private GameWindow window;
+    private boolean play = false;
 
     public MainMenu() {
         _initialize();
 
         Play_button.addActionListener((ActionEvent e) -> {
-            _mainGame();
+            play = true ;
         });
 
         Leaderboard_button.addActionListener((ActionEvent e) -> {
@@ -102,15 +103,14 @@ public class MainMenu extends GamePanel {
         this.window = new GameWindow(panel);
     }
 
-    private void _mainGame() {
-        this.panel = new MainGame();
-        this.window = new GameWindow(panel);
+    public boolean retrun() {
+      return play ;
     }
 
 
 
     @Override
     public void updateGame() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

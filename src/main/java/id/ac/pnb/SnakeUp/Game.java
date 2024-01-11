@@ -3,6 +3,7 @@ package id.ac.pnb.SnakeUp;
 import id.ac.pnb.SnakeUp.components.GamePanel;
 import id.ac.pnb.SnakeUp.components.GameWindow;
 import id.ac.pnb.SnakeUp.components.MainLoginPanel;
+import id.ac.pnb.SnakeUp.components.PanelLoginAndRegister;
 import id.ac.pnb.SnakeUp.database.DatabaseConnection;
 import id.ac.pnb.SnakeUp.helpers.PropertiesHelper;
 import id.ac.pnb.SnakeUp.panels.LeaderBoard;
@@ -22,6 +23,7 @@ public class Game implements Runnable {
   public Game() {
     _initialize();
     _startGameLoop();
+    
   }
 
   @Override
@@ -58,7 +60,12 @@ public class Game implements Runnable {
       }
       
       if (panel instanceof MainLoginPanel && ((MainLoginPanel) panel).isLoggedIn()) {
-                    _mainMenu();
+     
+                   _mainMenu();
+                }
+       if (panel instanceof MainMenu && ((MainMenu) panel).retrun()) {
+     
+                    _mainGame();
                 }
 
       if (deltaFrame >= 1.0) {
@@ -69,7 +76,7 @@ public class Game implements Runnable {
 
       if (System.currentTimeMillis() - lastCheck >= 1000) {
         lastCheck = System.currentTimeMillis();
-        System.out.println("Frames: " + frame + " | UPS: " + update);
+//        System.out.println("Frames: " + frame + " | UPS: " + update);
         frame = 0;
         update = 0;
       }
@@ -100,7 +107,8 @@ public class Game implements Runnable {
   private void _mainMenu() {
     this.panel = new MainMenu();
     this.window.setPanel(panel);
-  }
+ 
+}
 
   private void _login() {
           
