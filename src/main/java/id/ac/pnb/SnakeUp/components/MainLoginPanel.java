@@ -127,33 +127,32 @@ public class MainLoginPanel extends GamePanel {
         }
 
     }
+    
+    public void set (){
+    ModelUser user = new ModelUser();
+    user.playerID();
+    }
 
     private void login() {
         ModelLogin data = loginAndRegister.getDataLogin();
         try {
             ModelUser user = service.login(data);
-            if (user == null) {
-                showMessage(Message.MessageType.ERROR, "Email and Password incorrect");
-                return;
-            }
-           
-       
-            if (GlobalVars.setLogin) {
-                   System.out.println(GlobalVars.userID);
-//                if (GlobalVars.userID.size() >= 2) {
-                    
-                  
+           if (user != null) {
+            if(GlobalVars.setLogin){
+                if(GlobalVars.userID.size() >= 2){
                     loggedIn = true;
-
-//                } else {
-
-//                    showMessage(Message.MessageType.ERROR, "You need at least 2 players to play the game");
-//                
-//                }
-            } else {
-                loggedIn = true;
-            }
-
+                    
+                } else {
+                    showMessage(Message.MessageType.ERROR, "You need at least 2 players to play the game");
+                      isLogin = !isLogin;
+                       user.playerID();
+                }
+            } 
+           
+            }else{
+           showMessage(Message.MessageType.ERROR, "Email and Password incorrect");
+           }
+          
         } catch (Exception e) {
             showMessage(Message.MessageType.ERROR, "Error Login");
         }
@@ -223,6 +222,7 @@ public class MainLoginPanel extends GamePanel {
     public void cekPlayer(){
         
     }
+    
 
     public boolean isLoggedIn() {
         return loggedIn;

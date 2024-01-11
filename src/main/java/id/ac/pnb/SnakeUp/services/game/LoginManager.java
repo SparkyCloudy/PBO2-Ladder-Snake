@@ -37,7 +37,9 @@ public ModelUser login(ModelLogin login) {
                
                 int userID = r.getInt(1);
                 String userName = r.getString(2);
+                System.out.println(userID);
                 data = new ModelUser(userID, userName);
+                
                
                 
             }

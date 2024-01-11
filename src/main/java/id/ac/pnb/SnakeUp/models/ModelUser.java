@@ -9,11 +9,7 @@ public final class ModelUser {
         return userID;
     }
     
-    public void cekPlayer (){
-      
-        
-     
-    }
+  
 
     public void setUserID(int userID) {
         this.userID = userID;
@@ -39,10 +35,9 @@ public final class ModelUser {
 
         this.userID = userID;
         this.userName = userName;
-        
-          
+        System.out.println(userID);
        
-   
+
     }
     
     
@@ -54,26 +49,12 @@ public final class ModelUser {
             case 3 -> GlobalVars.userID.put(GamePlayer.FOUR,this.userID);
             default -> {
             }
-            
         }
-//        cek ++;
         }
-//    public void playerUsername(){
-//        if(GlobalVars.playerCount == 1){
-//             GlobalVars.userName.put("player1",this.userName);
-//        }else if (GlobalVars.playerCount == 2) {
-//            GlobalVars.userName.put("player2",this.userName);
-//        }else if (GlobalVars.playerCount == 3) {
-//            GlobalVars.userName.put("player3",this.userName);
-//        }else if (GlobalVars.playerCount == 4) {
-//            GlobalVars.userName.put("player4",this.userName);
-//        }
-//        }
 
     public ModelUser(String username, String password) {
 
         this.userName = username;
-
         this.password = password;
     }
     
@@ -82,7 +63,7 @@ public final class ModelUser {
     }
 
     private int userID;
-//    int cek = 0;
+
     private String userName;
 
     private String password;
