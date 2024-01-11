@@ -7,8 +7,10 @@ import id.ac.pnb.SnakeUp.database.DatabaseConnection;
 import id.ac.pnb.SnakeUp.helpers.PropertiesHelper;
 import id.ac.pnb.SnakeUp.panels.LeaderBoard;
 import id.ac.pnb.SnakeUp.panels.MainGame;
+import id.ac.pnb.SnakeUp.utils.Constants.GamePlayer;
 import id.ac.pnb.SnakeUp.utils.GlobalVars;
 import java.sql.SQLException;
+import javax.swing.JOptionPane;
 
 public class Game implements Runnable {
 
@@ -53,6 +55,7 @@ public class Game implements Runnable {
         update++;
         deltaUpdate--;
       }
+      
       if (panel instanceof MainLoginPanel && ((MainLoginPanel) panel).isLoggedIn()) {
                     _mainGame();
                 }
@@ -77,6 +80,12 @@ public class Game implements Runnable {
     this.thread = new Thread(this);
     _login();
   }
+  
+   private void showWinPopup(GamePlayer player) {
+        String winnerName = "Player " + (player.ordinal() + 1);
+        String message = "Congratulations!\n" + winnerName + " wins the game!";
+        JOptionPane.showMessageDialog(null, message, "Game Over", JOptionPane.INFORMATION_MESSAGE);
+    }
 
   private void _leaderboard() {
       this.panel = new LeaderBoard();

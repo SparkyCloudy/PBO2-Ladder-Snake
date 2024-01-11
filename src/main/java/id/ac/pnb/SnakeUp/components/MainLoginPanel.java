@@ -131,14 +131,24 @@ public class MainLoginPanel extends GamePanel {
         ModelLogin data = loginAndRegister.getDataLogin();
         try {
             ModelUser user = service.login(data);
-            if (user != null) {
-              
-//                 System.out.println(GlobalVars.playerCount);
-                loggedIn = true;
-                
+        if (user != null) {
+            if(GlobalVars.setLogin){
+                if(GlobalVars.userID.size() >= 2){
+                    loggedIn = true;
+                } else {
+                    showMessage(Message.MessageType.ERROR, "You need at least 2 players to play the game");
+                      isLogin = !isLogin;
+//                  this.window.setPanel(panel);
+                }
             } else {
-                showMessage(Message.MessageType.ERROR, "Email and Password incorrect");
+                loggedIn = true;
             }
+        } else {
+            showMessage(Message.MessageType.ERROR, "Email and Password incorrect");
+          
+          
+        }
+            
         } catch (Exception e) {
             showMessage(Message.MessageType.ERROR, "Error Login");
         }

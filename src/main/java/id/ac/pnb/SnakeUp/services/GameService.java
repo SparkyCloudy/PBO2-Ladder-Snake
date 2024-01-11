@@ -1,5 +1,6 @@
 package id.ac.pnb.SnakeUp.services;
 
+import id.ac.pnb.SnakeUp.utils.Constants.GamePlayer;
 import java.awt.*;
 
 public interface GameService {
@@ -10,5 +11,5 @@ public interface GameService {
 
   void start();
 
-  void stop();
+  void stop(GamePlayer player);
 }

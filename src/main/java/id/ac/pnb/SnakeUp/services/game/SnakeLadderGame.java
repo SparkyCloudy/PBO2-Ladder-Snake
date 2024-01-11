@@ -10,6 +10,7 @@ import id.ac.pnb.SnakeUp.utils.GlobalVars;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
+import javax.swing.JOptionPane;
 
 public class SnakeLadderGame implements GameService {
 
@@ -24,6 +25,8 @@ public class SnakeLadderGame implements GameService {
   private boolean status, isNextTurn, isTileClicked, isPlayerMoving,
       isAnyClicked;
   private final GamePlayer[] gamePlayers = GamePlayer.values();
+  private String idWin;
+
 
   private SnakeLadderGame() {
     this.BOARD = new Board();
@@ -31,6 +34,7 @@ public class SnakeLadderGame implements GameService {
     this.DICE = new Dice();
     this.SCORE_SERVICE = Scoreboard.getInstance();
       System.out.println(   PLAYER_COUNT);
+       System.out.println(   GlobalVars.userID);
 
   }
 
@@ -52,7 +56,7 @@ public class SnakeLadderGame implements GameService {
   @Override
   public void update() {
     if (!status) {
-      System.exit(0);
+ 
     }
 
     onPlayerMoving();
@@ -79,8 +83,13 @@ public class SnakeLadderGame implements GameService {
   }
 
   @Override
-  public void stop() {
+  public void stop(GamePlayer player) {
+       
+     var loginManager = new LoginManager();  
+      System.out.println(player);
+    loginManager.updateWinrate(player);
     status = false;
+     showWinPopup(player);
   }
 
   public void onTileClicked(MouseEvent e) {
@@ -148,8 +157,10 @@ public class SnakeLadderGame implements GameService {
 
     if (player.getPosition().equals(BOARD.getEndPosition())) {
       System.out.println("Player " + playerTurn + " is winning");
+    
+      
 
-      stop();
+      stop(playerTurn);
     }
   }
 
@@ -191,4 +202,9 @@ public class SnakeLadderGame implements GameService {
     isAnyClicked = false;
     isPlayerMoving = false;
   }
+  private void showWinPopup(GamePlayer player) {
+        String winnerName = "Player " + (player.ordinal() + 1);
+        String message = "Congratulations!\n" + winnerName + " wins the game!";
+        JOptionPane.showMessageDialog(null, message, "Game Over", JOptionPane.INFORMATION_MESSAGE);
+    }
 }

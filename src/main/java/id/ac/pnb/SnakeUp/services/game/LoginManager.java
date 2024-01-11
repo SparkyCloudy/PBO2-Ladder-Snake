@@ -4,6 +4,7 @@ import id.ac.pnb.SnakeUp.database.DatabaseConnection;
 import id.ac.pnb.SnakeUp.models.ModelLogin;
 import id.ac.pnb.SnakeUp.models.ModelUser;
 import id.ac.pnb.SnakeUp.services.AuthService;
+import id.ac.pnb.SnakeUp.utils.Constants.GamePlayer;
 import id.ac.pnb.SnakeUp.utils.GlobalVars;
 
 import java.sql.Connection;
@@ -45,7 +46,7 @@ public ModelUser login(ModelLogin login) {
     } catch (SQLException e) {
         System.out.println("Error in login: " + e);
     }finally{
-    
+    GlobalVars.playerCount ++;
     }
     return data;
 }
@@ -115,4 +116,65 @@ public ModelUser login(ModelLogin login) {
         }
         return duplicate;
     }
+    
+     public void updateGame(GamePlayer player) {
+    try {
+        int userID = GlobalVars.userID.get(player);
+        if (con != null) {
+       
+            String querySelect = "SELECT `match` FROM `winrate` WHERE `id_user` = ?";
+            try (PreparedStatement selectStatement = con.prepareStatement(querySelect)) {
+                selectStatement.setInt(1, userID);
+
+                try (ResultSet resultSet = selectStatement.executeQuery()) {
+                    if (resultSet.next()) {
+                        int currentGameMatch = resultSet.getInt("match");
+
+                        // Update nilai gameWin yang sudah ada di database
+                        String queryUpdate = "UPDATE `winrate` SET `match` = ? WHERE `id_user` = ?";
+                        try (PreparedStatement updateStatement = con.prepareStatement(queryUpdate)) {
+                            updateStatement.setInt(1, currentGameMatch + 1);
+                            updateStatement.setInt(2, userID);
+                            updateStatement.executeUpdate();
+                        }
+                    }
+                }
+            }
+        } else {
+            System.out.println("Connection is null");
+        }
+    } catch (SQLException e) {
+        System.out.println("Error in updateGame: " + e);
+    }
+}
+    public void updateWinrate(GamePlayer player) {
+    try {
+        int userID = GlobalVars.userID.get(player);
+        if (con != null) {
+       
+            String querySelect = "SELECT `gameWin` FROM `winrate` WHERE `id_user` = ?";
+            try (PreparedStatement selectStatement = con.prepareStatement(querySelect)) {
+                selectStatement.setInt(1, userID);
+
+                try (ResultSet resultSet = selectStatement.executeQuery()) {
+                    if (resultSet.next()) {
+                        int currentGameWin = resultSet.getInt("gameWin");
+
+                        // Update nilai gameWin yang sudah ada di database
+                        String queryUpdate = "UPDATE `winrate` SET `gameWin` = ? WHERE `id_user` = ?";
+                        try (PreparedStatement updateStatement = con.prepareStatement(queryUpdate)) {
+                            updateStatement.setInt(1, currentGameWin + 1);
+                            updateStatement.setInt(2, userID);
+                            updateStatement.executeUpdate();
+                        }
+                    }
+                }
+            }
+        } else {
+            System.out.println("Connection is null");
+        }
+    } catch (SQLException e) {
+        System.out.println("Error in updateGame: " + e);
+    }
+}
 }
