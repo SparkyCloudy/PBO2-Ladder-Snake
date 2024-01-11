@@ -4,7 +4,9 @@
  */
 package id.ac.pnb.SnakeUp.panels;
 
+import id.ac.pnb.SnakeUp.Game;
 import id.ac.pnb.SnakeUp.components.GamePanel;
+import id.ac.pnb.SnakeUp.components.GameWindow;
 import id.ac.pnb.SnakeUp.database.DatabaseConnection;
 import java.awt.*;
 import static java.awt.Component.CENTER_ALIGNMENT;
@@ -120,7 +122,7 @@ public class LeaderBoard extends GamePanel{
         back.setForeground(Color.WHITE);
         
         back.addActionListener((ActionEvent e) -> {
-            //ini adalah tombol kembali
+            
         });
         footer.add(back);
         super.add(footer);

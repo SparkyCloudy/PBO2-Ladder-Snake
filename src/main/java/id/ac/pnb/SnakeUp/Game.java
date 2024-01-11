@@ -89,9 +89,9 @@ public class Game implements Runnable {
     }
 
   private void _leaderboard() {
-      this.panel = new LeaderBoard();
-      this.window = new GameWindow(panel);
+      this.window.setPanel(new LeaderBoard());
   }
+  
 
   private void _mainGame() {
     this.panel = new MainGame();
