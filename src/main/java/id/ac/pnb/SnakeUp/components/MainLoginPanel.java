@@ -1,4 +1,5 @@
 package id.ac.pnb.SnakeUp.components;
+
 import id.ac.pnb.SnakeUp.models.ModelLogin;
 import id.ac.pnb.SnakeUp.models.ModelUser;
 import id.ac.pnb.SnakeUp.services.game.LoginManager;
@@ -22,7 +23,7 @@ public class MainLoginPanel extends GamePanel {
     private MigLayout layout;
     private PanelCover cover;
     private PanelLoginAndRegister loginAndRegister;
-    private boolean isLogin = true;
+    private boolean isLogin = false;
     private final double addSize = 30;
     private final double coverSize = 40;
     private final double loginSize = 60;
@@ -131,24 +132,27 @@ public class MainLoginPanel extends GamePanel {
         ModelLogin data = loginAndRegister.getDataLogin();
         try {
             ModelUser user = service.login(data);
-        if (user != null) {
-            if(GlobalVars.setLogin){
-                if(GlobalVars.userID.size() >= 2){
+            if (user == null) {
+                showMessage(Message.MessageType.ERROR, "Email and Password incorrect");
+                return;
+            }
+       
+            if (GlobalVars.setLogin) {
+                   System.out.println(GlobalVars.userID);
+                if (GlobalVars.userID.size() >= 2) {
+                    
+                  
                     loggedIn = true;
+
                 } else {
+
                     showMessage(Message.MessageType.ERROR, "You need at least 2 players to play the game");
-                      isLogin = !isLogin;
-//                  this.window.setPanel(panel);
+                
                 }
             } else {
                 loggedIn = true;
             }
-        } else {
-            showMessage(Message.MessageType.ERROR, "Email and Password incorrect");
-          
-          
-        }
-            
+
         } catch (Exception e) {
             showMessage(Message.MessageType.ERROR, "Error Login");
         }
@@ -215,7 +219,7 @@ public class MainLoginPanel extends GamePanel {
     public void updateGame() {
 //        throw new UnsupportedOperationException("Not supported yet.");
     }
-
+  
     public boolean isLoggedIn() {
         return loggedIn;
     }

@@ -45,9 +45,8 @@ public ModelUser login(ModelLogin login) {
         }
     } catch (SQLException e) {
         System.out.println("Error in login: " + e);
-    }finally{
-    GlobalVars.playerCount ++;
     }
+    
     return data;
 }
 
