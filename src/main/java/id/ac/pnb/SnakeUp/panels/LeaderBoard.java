@@ -27,6 +27,8 @@ public class LeaderBoard extends GamePanel{
     private Connection conn = null;
     private PreparedStatement p = null;
     private ResultSet r = null;
+    private JButton back;
+    private boolean hide= false;
     
     public LeaderBoard(){
         _initialize();
@@ -75,9 +77,7 @@ public class LeaderBoard extends GamePanel{
                 rank++;
             }
             super.add(content);
-            r.close();
-            p.close();
-            conn.close();
+            
         } catch (SQLException e) {
             e.getErrorCode();
         }
@@ -116,13 +116,13 @@ public class LeaderBoard extends GamePanel{
         JPanel footer = new JPanel();
         footer.setPreferredSize(new Dimension(1050,100));
         
-        JButton back = new JButton("BACK");
-        back.setPreferredSize(new Dimension(200,50));
+        back = new JButton("back");
+        back.setPreferredSize(new Dimension(400,50));
         back.setBackground(Color.DARK_GRAY);
         back.setForeground(Color.WHITE);
         
         back.addActionListener((ActionEvent e) -> {
-            
+            hide = true ;
         });
         footer.add(back);
         super.add(footer);
@@ -131,7 +131,11 @@ public class LeaderBoard extends GamePanel{
 
     @Override
     public void updateGame() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+    
+    public boolean backMenu() {
+      return hide;
     }
      
 }

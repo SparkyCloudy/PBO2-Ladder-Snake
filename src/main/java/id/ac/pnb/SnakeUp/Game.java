@@ -67,6 +67,14 @@ public class Game implements Runnable {
      
                     _mainGame();
                 }
+       if (panel instanceof MainMenu && ((MainMenu) panel).leader()) {
+     
+                    _leaderboard();
+                }
+       if (panel instanceof LeaderBoard && ((LeaderBoard) panel).backMenu()) {
+     
+                    _mainMenu();
+                }
 
       if (deltaFrame >= 1.0) {
         panel.repaint();
@@ -96,7 +104,8 @@ public class Game implements Runnable {
     }
 
   private void _leaderboard() {
-      this.window.setPanel(new LeaderBoard());
+      this.panel = new LeaderBoard();
+      this.window.setPanel(panel);
   }
   
 

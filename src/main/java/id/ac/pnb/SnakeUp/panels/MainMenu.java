@@ -23,6 +23,7 @@ public class MainMenu extends GamePanel {
     private GamePanel panel;
     private GameWindow window;
     private boolean play = false;
+    private boolean leaderboard = false;
 
     public MainMenu() {
         _initialize();
@@ -32,7 +33,7 @@ public class MainMenu extends GamePanel {
         });
 
         Leaderboard_button.addActionListener((ActionEvent e) -> {
-            _leaderboard();
+            leaderboard = true;
 
         });
 
@@ -105,6 +106,9 @@ public class MainMenu extends GamePanel {
 
     public boolean retrun() {
       return play ;
+    }
+    public boolean leader() {
+      return leaderboard ;
     }
 
 
