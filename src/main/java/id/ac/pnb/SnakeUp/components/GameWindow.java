@@ -16,21 +16,20 @@ public class GameWindow {
         
     }
     public void setPanel(GamePanel newPanel) {
-        frame.getContentPane().removeAll();
-        frame.setContentPane(newPanel);
-         frame.revalidate();
-    frame.repaint();
+      frame.getContentPane().removeAll();
+      frame.setContentPane(newPanel);
+      frame.revalidate();
+      frame.repaint();
         
     }
 
     private void _initialize() {
-
-        frame.setVisible(true);
-        frame.setResizable(false);
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        frame.add(this.panel);
-        frame.pack();
-        frame.setLocationRelativeTo(null);
+      frame.setVisible(true);
+      frame.setResizable(false);
+      frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+      frame.add(this.panel);
+      frame.pack();
+      frame.setLocationRelativeTo(null);
     }
 
 }
