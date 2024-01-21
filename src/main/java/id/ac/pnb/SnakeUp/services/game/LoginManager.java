@@ -172,4 +172,7 @@ public class LoginManager implements AuthService {
       System.out.println("Error in updateGame: " + e);
     }
   }
+  public void cekplayer (){
+  
+  }
 }
