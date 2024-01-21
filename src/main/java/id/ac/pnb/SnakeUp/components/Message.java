@@ -1,10 +1,7 @@
 package id.ac.pnb.SnakeUp.components;
 
-import java.awt.AlphaComposite;
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import javax.swing.ImageIcon;
+import javax.swing.*;
+import java.awt.*;
 
 public class Message extends javax.swing.JPanel {
 
@@ -77,7 +74,7 @@ public class Message extends javax.swing.JPanel {
         super.paintComponent(grphcs);
     }
 
-    public static enum MessageType {
+    public enum MessageType {
         SUCCESS, ERROR
     }
 

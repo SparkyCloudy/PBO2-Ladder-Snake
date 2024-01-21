@@ -28,4 +28,8 @@ public class SnakeLadderGameEvent extends GameEvent {
     GAME_SERVICE.onTileClicked(e);
     GAME_SERVICE.onAnyClicked(e);
   }
+
+  public boolean isGameEnded() {
+    return GAME_SERVICE.isGameEnded();
+  }
 }

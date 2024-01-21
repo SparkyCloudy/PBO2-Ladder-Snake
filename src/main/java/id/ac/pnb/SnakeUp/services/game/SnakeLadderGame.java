@@ -1,5 +1,6 @@
 package id.ac.pnb.SnakeUp.services.game;
 
+import id.ac.pnb.SnakeUp.Game;
 import id.ac.pnb.SnakeUp.models.Board;
 import id.ac.pnb.SnakeUp.models.Dice;
 import id.ac.pnb.SnakeUp.models.PlayerImpl;
@@ -8,9 +9,9 @@ import id.ac.pnb.SnakeUp.utils.Constants.GamePlayer;
 import id.ac.pnb.SnakeUp.utils.Constants.TileType;
 import id.ac.pnb.SnakeUp.utils.GlobalVars;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
-import javax.swing.JOptionPane;
 
 public class SnakeLadderGame implements GameService {
 
@@ -33,8 +34,7 @@ public class SnakeLadderGame implements GameService {
     this.PLAYER_COUNT = GlobalVars.userID.size();
     this.DICE = new Dice();
     this.SCORE_SERVICE = Scoreboard.getInstance();
-      System.out.println(   PLAYER_COUNT);
-       System.out.println(   GlobalVars.userID);
+    System.out.println(GlobalVars.userID);
 
   }
 
@@ -55,8 +55,8 @@ public class SnakeLadderGame implements GameService {
 
   @Override
   public void update() {
-    if (!status) {
- 
+    if (isGameEnded()) {
+      Game.leaderBoard();
     }
 
     onPlayerMoving();
@@ -73,6 +73,8 @@ public class SnakeLadderGame implements GameService {
   @Override
   public void start() {
     status = true;
+    PlayerManager.removeAll();
+    PlayerImpl.resetId();
     var startPosition = BOARD.getStartPosition();
 
     for (var i = 0; i < PLAYER_COUNT; i++) {
@@ -83,13 +85,11 @@ public class SnakeLadderGame implements GameService {
   }
 
   @Override
-  public void stop(GamePlayer player) {
-       
-     var loginManager = new LoginManager();  
-      System.out.println(player);
-    loginManager.updateWinrate(player);
+  public void stop() {
+    var loginManager = new LoginManager();
+    loginManager.updateWinrate(playerTurn);
     status = false;
-     showWinPopup(player);
+    showWinPopup(playerTurn);
   }
 
   public void onTileClicked(MouseEvent e) {
@@ -141,6 +141,10 @@ public class SnakeLadderGame implements GameService {
     // TODO implement powerup here
   }
 
+  public boolean isGameEnded() {
+    return !status;
+  }
+
   private void _checkPlayerPosition() {
     var player = (PlayerImpl) PlayerManager.getPlayer(playerTurn);
     var playerTileNum = player.getCurrentDiceValue();
@@ -151,16 +155,13 @@ public class SnakeLadderGame implements GameService {
       var nextTile = BOARD.getTiles().get(next);
       var nextTilePos = nextTile.getPosition();
       player.getPosition().setLocation(nextTilePos);
-      player.setCurrentDiceValue(tile.getNext()-1);
+      player.setCurrentDiceValue(tile.getNext() - 1);
       // TODO implement player event logging
     }
 
     if (player.getPosition().equals(BOARD.getEndPosition())) {
       System.out.println("Player " + playerTurn + " is winning");
-    
-      
-
-      stop(playerTurn);
+      stop();
     }
   }
 
@@ -180,9 +181,9 @@ public class SnakeLadderGame implements GameService {
     player.addDiceValue(DICE.getValue() + 1);
 
     var currentDiceValue = player.getCurrentDiceValue();
-    if (currentDiceValue > tiles.size()-1) {
+    if (currentDiceValue > tiles.size() - 1) {
       var remain = currentDiceValue - tiles.size();
-      player.setCurrentDiceValue(tiles.size()-2 - remain);
+      player.setCurrentDiceValue(tiles.size() - 2 - remain);
       currentDiceValue = player.getCurrentDiceValue();
     }
 
@@ -202,9 +203,10 @@ public class SnakeLadderGame implements GameService {
     isAnyClicked = false;
     isPlayerMoving = false;
   }
+
   private void showWinPopup(GamePlayer player) {
-        String winnerName = "Player " + (player.ordinal() + 1);
-        String message = "Congratulations!\n" + winnerName + " wins the game!";
-        JOptionPane.showMessageDialog(null, message, "Game Over", JOptionPane.INFORMATION_MESSAGE);
-    }
+    String winnerName = "Player " + (player.ordinal() + 1);
+    String message = "Congratulations!\n" + winnerName + " wins the game!";
+    JOptionPane.showMessageDialog(null, message, "Game Over", JOptionPane.INFORMATION_MESSAGE);
+  }
 }

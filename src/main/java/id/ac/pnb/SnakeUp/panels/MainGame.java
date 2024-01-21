@@ -6,18 +6,20 @@ import id.ac.pnb.SnakeUp.services.game.Scoreboard;
 import id.ac.pnb.SnakeUp.services.game.SnakeLadderGame;
 import id.ac.pnb.SnakeUp.services.game.SnakeLadderGameEvent;
 
-import java.awt.Graphics;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainGame extends GamePanel {
 
+  private GamePanel currentPanel = null;
   private final List<GameService> services = new ArrayList<>();
 
   public MainGame() {
     services.add(Scoreboard.getInstance());
     services.add(SnakeLadderGame.getInstance());
-    addMouseListener(SnakeLadderGameEvent.getInstance());
+    addMouseListener(SnakeLadderGameEvent
+        .getInstance());
     _initialize();
   }
 
@@ -34,4 +36,6 @@ public class MainGame extends GamePanel {
   public void updateGame() {
     services.forEach(GameService::update);
   }
+
+
 }

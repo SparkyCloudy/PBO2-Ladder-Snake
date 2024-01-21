@@ -30,4 +30,8 @@ public class PlayerManager {
       player.getPosition().setLocation(position);
     }
   }
+
+  public static void removeAll() {
+    _PLAYERS.clear();
+  }
 }

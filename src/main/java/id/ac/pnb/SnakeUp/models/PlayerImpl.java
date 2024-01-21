@@ -15,7 +15,7 @@ public class PlayerImpl implements Player {
   private final Point position;
   private final List<BufferedImage> bufferedImageList;
   private BufferedImage image;
-  private int currentDiceValue = 0, currentTileNumber;
+  private int currentDiceValue = 0;
 
   public PlayerImpl() {
     id++;
@@ -38,6 +38,10 @@ public class PlayerImpl implements Player {
   @Override
   public void create(Graphics g) {
     g.drawImage(image, position.x, position.y, null);
+  }
+
+  public static void resetId() {
+    id = 0;
   }
 
   public void addDiceValue(int value) {
