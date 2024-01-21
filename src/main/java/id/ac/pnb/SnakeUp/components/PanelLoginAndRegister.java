@@ -1,5 +1,6 @@
 package id.ac.pnb.SnakeUp.components;
 
+import id.ac.pnb.SnakeUp.SnakeUp;
 import id.ac.pnb.SnakeUp.models.ModelLogin;
 import id.ac.pnb.SnakeUp.models.ModelUser;
 import id.ac.pnb.SnakeUp.swing.Button;
@@ -67,11 +68,13 @@ public class PanelLoginAndRegister extends javax.swing.JLayeredPane {
     label.setForeground(new Color(0, 0, 0));
     login.add(label);
     MyTextField txtUsername = new MyTextField();
-    txtUsername.setPrefixIcon(new ImageIcon(getClass().getResource("/assets//mail.png")));
+    txtUsername.setPrefixIcon(new ImageIcon(SnakeUp.class.getClassLoader()
+        .getResource("assets/mail.png")));
     txtUsername.setHint("Email");
     login.add(txtUsername, "w 60%");
     MyPasswordField txtPass = new MyPasswordField();
-    txtPass.setPrefixIcon(new ImageIcon(getClass().getResource("/assets/pass.png")));
+    txtPass.setPrefixIcon(new ImageIcon(SnakeUp.class.getClassLoader()
+        .getResource("assets/pass.png")));
     txtPass.setHint("Password");
     login.add(txtPass, "w 60%");
     JButton cmdForget = new JButton("Forgot your password ?");
