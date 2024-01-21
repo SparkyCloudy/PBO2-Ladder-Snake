@@ -79,8 +79,8 @@ public class PanelLoginAndRegister extends javax.swing.JLayeredPane {
         label.setForeground(new Color(0, 0, 0));
         login.add(label);
         MyTextField txtUsername = new MyTextField();
-        txtUsername.setPrefixIcon(new ImageIcon(getClass().getResource("/assets//mail.png")));
-        txtUsername.setHint("Email");
+        txtUsername.setPrefixIcon(new ImageIcon(getClass().getResource("/assets/user.png")));
+        txtUsername.setHint("Username");
         login.add( txtUsername, "w 60%");
         MyPasswordField txtPass = new MyPasswordField();
         txtPass.setPrefixIcon(new ImageIcon(getClass().getResource("/assets/pass.png")));
