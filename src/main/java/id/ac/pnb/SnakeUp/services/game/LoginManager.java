@@ -173,6 +173,20 @@ public class LoginManager implements AuthService {
     }
   }
   public void cekplayer (){
-  
+      if (GlobalVars.userID.size()>=2) {
+          updateGame(GamePlayer.ONE);
+           updateGame(GamePlayer.TWO);
+          
+      }
+      if (GlobalVars.userID.size()>=3) {
+          updateGame(GamePlayer.THREE);
+         
+          
+      }
+      if (GlobalVars.userID.size()>=4) {
+          updateGame(GamePlayer.FOUR);
+          
+          
+      }
   }
 }

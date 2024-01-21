@@ -14,7 +14,7 @@ import java.awt.event.ActionListener;
 
 public class PanelLoginAndRegister extends javax.swing.JLayeredPane {
 
-  public ModelLogin getDataLogin() {
+ public ModelLogin getDataLogin() {
     return dataLogin;
   }
 
@@ -51,7 +51,6 @@ public class PanelLoginAndRegister extends javax.swing.JLayeredPane {
     Button cmd = new Button();
     cmd.setBackground(new Color(0, 0, 0));
     cmd.setForeground(new Color(250, 250, 250));
-    cmd.addActionListener(eventRegister);
     cmd.setText("SIGN UP");
     register.add(cmd, "w 40%, h 40");
 
@@ -70,7 +69,7 @@ public class PanelLoginAndRegister extends javax.swing.JLayeredPane {
     login.add(label);
     MyTextField txtUsername = new MyTextField();
     txtUsername.setPrefixIcon(new ImageIcon(SnakeUp.class.getClassLoader()
-        .getResource("/assets/user.png")));
+        .getResource("assets/user.png")));
     txtUsername.setHint("Username");
     login.add(txtUsername, "w 60%");
     MyPasswordField txtPass = new MyPasswordField();
@@ -106,6 +105,7 @@ public class PanelLoginAndRegister extends javax.swing.JLayeredPane {
       login.setVisible(true);
     }
   }
+
 
   @SuppressWarnings("unchecked")
   // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
