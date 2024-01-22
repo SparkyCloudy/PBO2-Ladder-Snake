@@ -124,6 +124,10 @@ public class MainLoginPanel extends GamePanel {
     try {
       ModelUser user = service.login(data);
       if (user != null) {
+        if (GlobalVars.userID.size() == 4) {
+          Game.mainMenu();
+        }
+
         user.playerID();
         if (GlobalVars.setLogin) {
           if (GlobalVars.userID.size() >= 2) {
