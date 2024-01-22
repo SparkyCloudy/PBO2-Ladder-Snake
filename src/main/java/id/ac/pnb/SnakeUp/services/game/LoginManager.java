@@ -172,21 +172,11 @@ public class LoginManager implements AuthService {
       System.out.println("Error in updateGame: " + e);
     }
   }
-  public void cekplayer (){
-      if (GlobalVars.userID.size()>=2) {
-          updateGame(GamePlayer.ONE);
-           updateGame(GamePlayer.TWO);
-          
-      }
-      if (GlobalVars.userID.size()>=3) {
-          updateGame(GamePlayer.THREE);
-         
-          
-      }
-      if (GlobalVars.userID.size()>=4) {
-          updateGame(GamePlayer.FOUR);
-          
-          
-      }
+
+  public void cekplayer() {
+    var sessionKey = GlobalVars.userID.keySet();
+    for (var player : sessionKey) {
+      updateGame(player);
+    }
   }
 }
