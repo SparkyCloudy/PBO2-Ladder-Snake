@@ -87,7 +87,7 @@ public class SnakeLadderGame implements GameService {
   @Override
   public void stop() {
     var loginManager = new LoginManager();
-     loginManager.cekplayer();
+    loginManager.cekplayer();
     loginManager.updateWinrate(playerTurn);
     status = false;
     showWinPopup(playerTurn);

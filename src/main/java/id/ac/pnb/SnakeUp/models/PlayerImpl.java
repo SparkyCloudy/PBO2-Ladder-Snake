@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class PlayerImpl implements Player {
-  private static int id = 0, rank;
+  private static int id = 0;
   private final Point position;
   private final List<BufferedImage> bufferedImageList;
   private BufferedImage image;
