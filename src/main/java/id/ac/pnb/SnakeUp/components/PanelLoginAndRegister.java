@@ -49,6 +49,7 @@ public class PanelLoginAndRegister extends javax.swing.JLayeredPane {
     txtPass.setHint("Password");
     register.add(txtPass, "w 60%");
     Button cmd = new Button();
+    cmd.addActionListener(eventRegister);
     cmd.setBackground(new Color(0, 0, 0));
     cmd.setForeground(new Color(250, 250, 250));
     cmd.setText("SIGN UP");
